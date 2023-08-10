@@ -52,16 +52,29 @@ const natural = require('natural');
 require("dotenv").config({path:"./.env"});
 
 
+const requestIP = require('request-ip');
+
+
 const app = express();
 
-const PORT = process.env.PORT || 5000;
 
+const PORT =  process.env.PORT;
 app.use(cors());
 app.use(bodyParser.json());
 
 // Initialize NLTK stemmer and tokenizer
 const stemmer = natural.PorterStemmer;
 const tokenizer = new natural.WordTokenizer();
+
+const doctors = [
+  {name: 'Dr. John Doe', specialization: 'Emergency Medicine', location: 'sikkim' },
+  {name : 'Dr. paul Doe', specialization: 'Emergency Medicine', location: 'sikkim' },
+  {name : 'Dr. jolly', specialization: 'Emergency Medicine', location: 'Diu' },
+  {name : 'Dr. aman ', specialization: 'Emergency Medicine', location: 'india' },
+  {name : 'Dr. rahul', specialization: 'Emergency Medicine', location: 'Diu' },
+  
+  // Add more doctor entries
+];
 
 // Sample data for the chatbot
 const knowledgeBase = [
@@ -91,6 +104,8 @@ const knowledgeBase = [
   { input: 'threats to snakes', output: 'Snakes face various threats, including habitat loss, pollution, and persecution by humans due to fear and misunderstanding. Several snake species are endangered or critically endangered.' },
   { input: 'conservation', output: 'Conservation efforts are in place to protect snake species and their habitats. Educating the public about the importance of snakes in ecosystems is essential for their conservation.' },
   // Add more knowledge base entries here
+  { input: 'snake bite',
+  output: 'I\'m sorry to hear that. In case of a snake bite, here are some immediate steps you can take:\n1. Try to remain calm and keep the bitten area as still as possible.\n2. ... (precautions)\n\nFor immediate medical assistance, consider contacting these doctors:\n' + doctors.map(doctor => `${doctor.name} (${doctor.specialization}) - ${doctor.location}`).join('\n'),}
 ];
 
 
@@ -111,9 +126,12 @@ function processUserInput(input) {
 }
 
 
-app.get("/ip",function(req,res){
-  res.end("Your IP address is " + req.ip);
-})
+app.get('/ips',function(request, response) {
+
+  const  clientIp = requestIP.getClientIp(request);
+  console.log(clientIp);
+
+});
 
 
 app.post('/api/chat', (req, res) => {
