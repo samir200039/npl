@@ -1,0 +1,214 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hello": {
+            "intent": "greet",
+            "domain": "default"
+          },
+          "hi": {
+            "intent": "greet",
+            "domain": "default"
+          },
+          "is,name,what,your": {
+            "intent": "greet.name",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greet": "default",
+          "greet.name": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "Hello",
+            "intent": "greet"
+          },
+          {
+            "domain": "default",
+            "utterance": "Hi",
+            "intent": "greet"
+          },
+          {
+            "domain": "default",
+            "utterance": "What is your name?",
+            "intent": "greet.name"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hello": 1,
+              "hi": 1,
+              "what": 1,
+              "is": 1,
+              "your": 1,
+              "name": 1
+            },
+            "intents": {
+              "greet": 1,
+              "greet.name": 1
+            },
+            "intentFeatures": {
+              "greet": {
+                "hello": 1,
+                "hi": 1
+              },
+              "greet.name": {
+                "what": 1,
+                "is": 1,
+                "your": 1,
+                "name": 1
+              }
+            },
+            "featuresToIntent": {
+              "hello": [
+                "greet"
+              ],
+              "hi": [
+                "greet"
+              ],
+              "what": [
+                "greet.name"
+              ],
+              "is": [
+                "greet.name"
+              ],
+              "your": [
+                "greet.name"
+              ],
+              "name": [
+                "greet.name"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hello",
+                "hi",
+                "what",
+                "is",
+                "your",
+                "name"
+              ],
+              "intents": [
+                "greet",
+                "greet.name"
+              ],
+              "perceptrons": [
+                [
+                  7.455224514007568,
+                  7.512063026428223,
+                  -1.6615996360778809,
+                  -1.6615996360778809,
+                  -1.6615996360778809,
+                  -1.6615996360778809,
+                  6.667290305688038
+                ],
+                [
+                  -0.8324070572853088,
+                  -0.8236695528030396,
+                  3.3585972785949707,
+                  3.3585972785949707,
+                  3.3585972785949707,
+                  3.3585972785949707,
+                  0.8490229833615568
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "Hello"
+      ],
+      [
+        "en",
+        "Hi"
+      ],
+      [
+        "en",
+        "What is your name?"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
