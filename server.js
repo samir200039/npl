@@ -49,10 +49,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const natural = require('natural');
+require("dotenv").config();
 
 const app = express();
 
-const port =5000;
+const PORT = process.enc.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -131,6 +132,6 @@ app.post('/api/chat', (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Chatbot server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Chatbot server is running on http://localhost:${PORT}`);
 });
